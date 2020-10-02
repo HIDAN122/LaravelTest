@@ -10,12 +10,20 @@ class AccountController extends Controller
 {
     public function index()
     {
+
         $user = auth()->user();
+        if($user) {
 
-        $items = $user->accounts;
+            $items = $user->accounts;
+
+            return view('bank.accounts.index', compact('items'));
+        }else{
+            $items = Account::all();
+
+            return view('welcome',compact('items'));
+        }
 
 
-        return view('bank.accounts.index', compact('items'));
     }
 
     public function create()
